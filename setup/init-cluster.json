@@ -1,0 +1,18 @@
+{
+	"logIndex": 0,
+	"lastLogIndex": 0,
+	"servers":[
+	   {
+		   "id": 1,
+		   "endpoint": "tcp://localhost:9001"
+	   },
+	   {
+		   "id": 2,
+		   "endpoint": "tcp://localhost:9002"
+	   },
+	   {
+		   "id": 3,
+		   "endpoint": "tcp://localhost:9003"
+	   }
+	]
+}

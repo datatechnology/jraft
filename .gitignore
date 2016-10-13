@@ -1,0 +1,8 @@
+**/*.class
+**/*.classpath
+**/*.project
+**/*.jar
+exts/target/
+core/target/
+dmprinter/target/
+.settings/
