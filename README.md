@@ -36,11 +36,16 @@ dmprinter is a distributed message printer which is used to verify the core impl
   2. start a command prompt, change directory to **setup** folder
   3. run **setup.cmd**, it will start three instances of jraft
   4. write a simple client by using python or whatever language you would love to to connect to any port between 8001 to 8003, which dmprinter is listening on. **message format** see below
-  5. you can call addsrv.cmd \<server-id-in-int\> to start new instance of raft and call addsrv:\<server-id-in-int\>,tcp://localhost:900\<server-id-in-int\> to join the server to cluster, e.g. addsrv 4, then addsrv:4,tcp://localhost:9004 (through the client, see below)
+  5. you can call addsrv.cmd \<server-id-in-int\> to start new instance of raft and call addsrv:\<server-id-in-int\>,tcp://localhost:900\<server-id-in-int\> to join the server to cluster, e.g. **addsrv:4,tcp://localhost:9004** through the client, or remove a server from cluster **rmsrv,4**, check out more details about the message format as below,
   
 > Message format \<header\>\<message\>
+
 > \<header\> := four bytes, which is encoded from an integer in little-endian format, the integer is the bytes of the \<message\>
+
 > \<message\> := \<id|command\>:\<content\>
+
 > \<id\> := uuid
+
 > \<command\> := addsrv|rmsrv
+
 > \<content\> := srvid,uri|srvid|any-string
