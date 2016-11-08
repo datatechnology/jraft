@@ -17,6 +17,12 @@
 
 package net.data.technology.jraft;
 
+/**
+ * Log entry, which represents an entry stored in the sequential log store
+ * replication is done through LogEntry objects
+ * @author Data Technology LLC
+ *
+ */
 public class LogEntry {
 
     private byte[] value;

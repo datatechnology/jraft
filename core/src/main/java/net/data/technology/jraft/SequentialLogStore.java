@@ -28,7 +28,7 @@ public interface SequentialLogStore {
     /**
      * The start index of the log store, at the very beginning, it must be 1
      * however, after some compact actions, this could be anything greater or equals to one
-     * @return
+     * @return start index of the log store
      */
     public long getStartIndex();
 
@@ -54,15 +54,15 @@ public interface SequentialLogStore {
 
     /**
      * Get log entries with index between {@code start} and {@code end}
-     * @param start, the start index of log entries
-     * @param end, the end index of log entries (exclusive)
+     * @param start the start index of log entries
+     * @param end the end index of log entries (exclusive)
      * @return the log entries between [start, end)
      */
     public LogEntry[] getLogEntries(long start, long end);
 
     /**
      * Gets the log entry at the specified index
-     * @param index, starts from 1
+     * @param index starts from 1
      * @return the log entry or null if index >= {@code this.getFirstAvailableIndex()}
      */
     public LogEntry getLogEntryAt(long index);
@@ -77,7 +77,7 @@ public interface SequentialLogStore {
 
     /**
      * Apply the log pack to current log store, starting from index
-     * @param index, the log index that start applying the logPack, index starts from 1
+     * @param index the log index that start applying the logPack, index starts from 1
      * @param logPack
      */
     public void applyLogPack(long index, byte[] logPack);

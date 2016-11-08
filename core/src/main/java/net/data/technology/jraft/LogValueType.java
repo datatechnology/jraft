@@ -17,32 +17,56 @@
 
 package net.data.technology.jraft;
 
+/**
+ * Log value type for the value of a log entry
+ * @author Data Technology LLC
+ *
+ */
 public enum LogValueType {
 
+    /**
+     * Log value for application, which means the value could only be understood by the application (not jraft)
+     */
     Application {
         @Override
         public byte toByte(){
             return 1;
         }
     },
+    
+    /**
+     * Log value is cluster configuration data
+     */
     Configuration {
         @Override
         public byte toByte(){
             return 2;
         }
     },
+    
+    /**
+     * Log value is cluster server id
+     */
     ClusterServer {
         @Override
         public byte toByte(){
             return 3;
         }
     },
+    
+    /**
+     * Log value is a pack of many log entries, this is used when a server is left far behind or a new server just join the cluster
+     */
     LogPack {
         @Override
         public byte toByte(){
             return 4;
         }
-    },
+    }, 
+    
+    /**
+     * Log value is snapshot sync request data
+     */
     SnapshotSyncRequest {
         @Override
         public byte toByte(){
@@ -50,8 +74,17 @@ public enum LogValueType {
         }
     };
 
+    /**
+     * Converts a LogValueType to a byte value
+     * @return
+     */
     public abstract byte toByte();
 
+    /**
+     * Converts a byte value to LogValueType
+     * @param b byte value
+     * @return LogValueType
+     */
     public static LogValueType fromByte(byte b){
         switch(b){
         case 1:

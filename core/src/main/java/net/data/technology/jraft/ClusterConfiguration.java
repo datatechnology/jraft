@@ -22,6 +22,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Cluster configuration, a class to hold the cluster configuration information
+ * @author Data Technology LLC
+ *
+ */
 public class ClusterConfiguration {
 
     private long logIndex;
@@ -34,6 +39,12 @@ public class ClusterConfiguration {
         this.lastLogIndex = 0;
     }
 
+    /**
+     * De-serialize the data stored in buffer to cluster configuration
+     * this is used for the peers to get the cluster configuration from log entry value
+     * @param buffer the binary data
+     * @return cluster configuration
+     */
     public static ClusterConfiguration fromBytes(ByteBuffer buffer){
         ClusterConfiguration configuration = new ClusterConfiguration();
         configuration.setLogIndex(buffer.getLong());
@@ -45,6 +56,12 @@ public class ClusterConfiguration {
         return configuration;
     }
 
+    /**
+     * De-serialize the data stored in buffer to cluster configuration
+     * this is used for the peers to get the cluster configuration from log entry value
+     * @param buffer the binary data
+     * @return cluster configuration
+     */
     public static ClusterConfiguration fromBytes(byte[] data){
         return fromBytes(ByteBuffer.wrap(data));
     }
@@ -57,6 +74,10 @@ public class ClusterConfiguration {
         this.logIndex = logIndex;
     }
 
+    /**
+     * Gets the log index that contains the previous cluster configuration
+     * @return log index
+     */
     public long getLastLogIndex() {
         return lastLogIndex;
     }
@@ -69,6 +90,11 @@ public class ClusterConfiguration {
         return servers;
     }
 
+    /**
+     * Try to get a cluster server configuration from cluster configuration
+     * @param id the server id
+     * @return a cluster server configuration or null if id is not found
+     */
     public ClusterServer getServer(int id){
         for(ClusterServer server : this.servers){
             if(server.getId() == id){
@@ -79,6 +105,11 @@ public class ClusterConfiguration {
         return null;
     }
 
+    /**
+     * Serialize the cluster configuration into a buffer
+     * this is used for the leader to serialize a new cluster configuration and replicate to peers
+     * @return binary data that represents the cluster configuration
+     */
     public byte[] toBytes(){
         int totalSize = Long.BYTES * 2;
         List<byte[]> serversData = new ArrayList<byte[]>(this.servers.size());

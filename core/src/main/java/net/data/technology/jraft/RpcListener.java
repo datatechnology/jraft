@@ -21,7 +21,7 @@ public interface RpcListener {
 
     /**
      * Starts listening and handle all incoming messages with messageHandler
-     * @param messageHandler, the  message handler to handle all incoming requests
+     * @param messageHandler the  message handler to handle all incoming requests
      */
     public void startListening(RaftMessageHandler messageHandler);
 

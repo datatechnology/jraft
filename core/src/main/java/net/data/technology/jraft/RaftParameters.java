@@ -41,7 +41,7 @@ public class RaftParameters {
 
     /**
      * Enable log compact and snapshot with the commit distance
-     * @param distance, log distance to compact between two snapshots
+     * @param distance log distance to compact between two snapshots
      * @return self
      */
     public RaftParameters withSnapshotEnabled(int distance){
@@ -124,7 +124,7 @@ public class RaftParameters {
 
     /**
      * Upper value for election timeout
-     * @return
+     * @return upper of election timeout in milliseconds
      */
     public int getElectionTimeoutUpperBound() {
         return electionTimeoutUpperBound;
@@ -132,7 +132,7 @@ public class RaftParameters {
 
     /**
      * Lower value for election timeout
-     * @return
+     * @return lower of election timeout in milliseconds
      */
     public int getElectionTimeoutLowerBound() {
         return electionTimeoutLowerBound;
@@ -140,7 +140,7 @@ public class RaftParameters {
 
     /**
      * Heartbeat interval for each peer
-     * @return
+     * @return heartbeat interval in milliseconds
      */
     public int getHeartbeatInterval() {
         return heartbeatInterval;
@@ -148,7 +148,7 @@ public class RaftParameters {
 
     /**
      * Rpc backoff for peers that failed to be connected
-     * @return
+     * @return rpc backoff in milliseconds
      */
     public int getRpcFailureBackoff() {
         return rpcFailureBackoff;
@@ -156,7 +156,7 @@ public class RaftParameters {
 
     /**
      * The maximum heartbeat interval, any value beyond this may lead to election timeout for a peer before receiving a heartbeat
-     * @return
+     * @return maximum heartbeat interval (including rpc backoff) in milliseconds
      */
     public int getMaxHeartbeatInterval(){
         return Math.max(this.heartbeatInterval, this.electionTimeoutLowerBound - this.heartbeatInterval / 2);
@@ -164,7 +164,7 @@ public class RaftParameters {
 
     /**
      * The batch size for each ReplicateLogRequest message
-     * @return
+     * @return batch size in bytes
      */
     public int getLogSyncBatchSize() {
         return logSyncBatchSize;
@@ -173,7 +173,7 @@ public class RaftParameters {
     /**
      * the max gap allowed for log sync, if the gap between the client and leader is less than this value,
      * the ReplicateLogRequest will be stopped
-     * @return
+     * @return maximum gap allowed in bytes for log sync
      */
     public int getLogSyncStopGap() {
         return logSyncStopGap;
@@ -181,7 +181,7 @@ public class RaftParameters {
 
     /**
      * The commit distances for snapshots, zero means don't take any snapshots
-     * @return
+     * @return commit distances for log store
      */
     public int getSnapshotDistance(){
         return this.snapshotDistance;
@@ -189,7 +189,7 @@ public class RaftParameters {
 
     /**
      * The block size to sync while syncing snapshots to peers
-     * @return
+     * @return block size in bytes
      */
     public int getSnapshotBlockSize() {
         return snapshotBlockSize;
@@ -197,7 +197,7 @@ public class RaftParameters {
 
     /**
      * The maximum log entries in an appendEntries request
-     * @return
+     * @return maximum log entries
      */
     public int getMaximumAppendingSize(){
         return this.maxAppendingSize;

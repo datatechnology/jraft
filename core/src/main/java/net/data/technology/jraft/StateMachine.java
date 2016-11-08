@@ -31,30 +31,30 @@ public interface StateMachine {
 	
     /**
      * Commit the log data at the {@code logIndex}
-     * @param logIndex, the log index in the logStore
+     * @param logIndex the log index in the logStore
      * @param data 
      */
     public void commit(long logIndex, byte[] data);
 
     /**
      * Rollback a preCommit item at index {@code logIndex}
-     * @param logIndex, log index to be rolled back
+     * @param logIndex log index to be rolled back
      * @param data
      */
     public void rollback(long logIndex, byte[] data);
 
     /**
      * PreCommit a log entry at log index {@code logIndex}
-     * @param logIndex, the log index to commit
+     * @param logIndex the log index to commit
      * @param data
      */
     public void preCommit(long logIndex, byte[] data);
 
     /**
      * Save data for the snapshot
-     * @param snapshot, the snapshot information
-     * @param offset, offset of the data in the whole snapshot
-     * @param data, part of snapshot data
+     * @param snapshot the snapshot information
+     * @param offset offset of the data in the whole snapshot
+     * @param data part of snapshot data
      */
     public void saveSnapshotData(Snapshot snapshot, long offset, byte[] data);
 
@@ -67,9 +67,9 @@ public interface StateMachine {
 
     /**
      * Read snapshot data at the specified offset to buffer and return bytes read
-     * @param snapshot, the snapshot info
-     * @param offset, the offset of the snapshot data
-     * @param buffer, the buffer to be filled
+     * @param snapshot the snapshot info
+     * @param offset the offset of the snapshot data
+     * @param buffer the buffer to be filled
      * @return bytes read
      */
     public int readSnapshotData(Snapshot snapshot, long offset, byte[] buffer);
@@ -84,15 +84,15 @@ public interface StateMachine {
      * Create a snapshot data based on the snapshot information asynchronously
      * set the future to true if snapshot is successfully created, otherwise, 
      * set it to false
-     * @param snapshot, the snapshot info
-     * @return
+     * @param snapshot the snapshot info
+     * @return true if snapshot is created successfully, otherwise false
      */
     public CompletableFuture<Boolean> createSnapshot(Snapshot snapshot);
     
     /**
      * Save the state of state machine to ensure the state machine is in a good state, then exit the system
      * this MUST exits the system to protect the safety of the algorithm
-     * @param code, 0 indicates the system is gracefully shutdown, -1 indicates there are some errors which cannot be recovered
+     * @param code 0 indicates the system is gracefully shutdown, -1 indicates there are some errors which cannot be recovered
      */
     public void exit(int code);
 }

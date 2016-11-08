@@ -20,6 +20,12 @@ package net.data.technology.jraft;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Cluster server configuration 
+ * a class to hold the configuration information for a server in a cluster
+ * @author Data Technology LLC
+ *
+ */
 public class ClusterServer {
 
     private int id;
@@ -54,6 +60,10 @@ public class ClusterServer {
         this.endpoint = endpoint;
     }
 
+    /**
+     * Serialize a server configuration to binary data
+     * @return the binary data that represents the server configuration
+     */
     public byte[] toBytes(){
         byte[] endpointData = this.endpoint.getBytes(StandardCharsets.UTF_8);
         ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES * 2 + endpointData.length);

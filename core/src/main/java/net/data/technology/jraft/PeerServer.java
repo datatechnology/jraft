@@ -24,6 +24,12 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
+/**
+ * Peer server in the same cluster for local server
+ * this represents a peer for local server, it could be a leader, however, if local server is not a leader, though it has a list of peer servers, they are not used
+ * @author Data Technology LLC
+ *
+ */
 public class PeerServer {
 
     private ClusterServer clusterConfig;
