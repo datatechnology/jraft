@@ -262,7 +262,7 @@ public class RaftServer implements RaftMessageHandler {
                 if(logEntry.getValueType() == LogValueType.Configuration){
                     this.logger.info("received a configuration change at index %d from leader", indexForEntry);
                     this.configChanging = true;
-                }else{
+                } else if(logEntry.getValueType() == LogValueType.Application) {
                     this.stateMachine.preCommit(indexForEntry, logEntry.getValue());
                 }
             }
