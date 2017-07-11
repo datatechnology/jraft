@@ -59,7 +59,7 @@ public class ClusterConfiguration {
     /**
      * De-serialize the data stored in buffer to cluster configuration
      * this is used for the peers to get the cluster configuration from log entry value
-     * @param buffer the binary data
+     * @param data the binary data
      * @return cluster configuration
      */
     public static ClusterConfiguration fromBytes(byte[] data){

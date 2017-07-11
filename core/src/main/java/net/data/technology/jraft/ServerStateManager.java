@@ -27,13 +27,13 @@ public interface ServerStateManager {
 
     /**
      * Save the cluster configuration
-     * @param configuration
+     * @param configuration cluster configuration to save
      */
     public void saveClusterConfiguration(ClusterConfiguration configuration);
 
     /**
      * Save the server state
-     * @param serverState
+     * @param serverState server state to persist
      */
     public void persistState(ServerState serverState);
 

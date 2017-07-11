@@ -31,7 +31,7 @@ public class RaftParameters {
 
     /**
      * The tcp block size for syncing the snapshots
-     * @param size
+     * @param size size of sync block
      * @return self
      */
     public RaftParameters withSyncSnapshotBlockSize(int size){
@@ -52,8 +52,8 @@ public class RaftParameters {
     /**
      * For new member that just joined the cluster, we will use log sync to ask it to catch up,
      * and this parameter is to tell when to stop using log sync but appendEntries for the new server
-     * when leaderCommitIndex - indexCaughtUp < logSyncStopGap, then appendEntries will be used
-     * @param logSyncStopGap
+     * when leaderCommitIndex - indexCaughtUp &lt; logSyncStopGap, then appendEntries will be used
+     * @param logSyncStopGap the log gap to stop log pack-and-sync feature
      * @return self
      */
     public RaftParameters withLogSyncStoppingGap(int logSyncStopGap){
@@ -64,7 +64,7 @@ public class RaftParameters {
     /**
      * For new member that just joined the cluster, we will use log sync to ask it to catch up,
      * and this parameter is to specify how many log entries to pack for each sync request
-     * @param logSyncBatchSize
+     * @param logSyncBatchSize the batch size fo pack-and-sync feature
      * @return self
      */
     public RaftParameters withLogSyncBatchSize(int logSyncBatchSize){
@@ -74,7 +74,7 @@ public class RaftParameters {
 
     /**
      * The maximum log entries could be attached to an appendEntries call
-     * @param maxAppendingSize
+     * @param maxAppendingSize size limit for appendEntries call
      * @return self
      */
     public RaftParameters withMaximumAppendingSize(int maxAppendingSize){
@@ -84,7 +84,7 @@ public class RaftParameters {
 
     /**
      * Election timeout upper bound in milliseconds
-     * @param electionTimeoutUpper
+     * @param electionTimeoutUpper election timeout upper value
      * @return self
      */
     public RaftParameters withElectionTimeoutUpper(int electionTimeoutUpper){
@@ -94,7 +94,7 @@ public class RaftParameters {
 
     /**
      * Election timeout lower bound in milliseconds
-     * @param electionTimeoutLower
+     * @param electionTimeoutLower election timeout lower value
      * @return self
      */
     public RaftParameters withElectionTimeoutLower(int electionTimeoutLower){
@@ -104,7 +104,7 @@ public class RaftParameters {
 
     /**
      * heartbeat interval in milliseconds
-     * @param heartbeatInterval
+     * @param heartbeatInterval heart beat interval
      * @return self
      */
     public RaftParameters withHeartbeatInterval(int heartbeatInterval){
@@ -114,7 +114,7 @@ public class RaftParameters {
 
     /**
      * Rpc failure backoff in milliseconds
-     * @param rpcFailureBackoff
+     * @param rpcFailureBackoff rpc failure back off
      * @return self
      */
     public RaftParameters withRpcFailureBackoff(int rpcFailureBackoff){

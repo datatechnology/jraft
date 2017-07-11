@@ -21,7 +21,7 @@ public interface SequentialLogStore {
 
     /**
      * The first available index of the store, starts with 1
-     * @return value >= 1
+     * @return value &gt;= 1
      */
     public long getFirstAvailableIndex();
 
@@ -40,15 +40,15 @@ public interface SequentialLogStore {
 
     /**
      * Appends a log entry to store
-     * @param logEntry
+     * @param logEntry log entry to append
      * @return the last appended log index
      */
     public long append(LogEntry logEntry);
 
     /**
      * Over writes a log entry at index of {@code index}
-     * @param index a value < {@code this.getFirstAvailableIndex()}, and starts from 1
-     * @param logEntry
+     * @param index a value &lt; {@code this.getFirstAvailableIndex()}, and starts from 1
+     * @param logEntry log entry to write
      */
     public void writeAt(long index, LogEntry logEntry);
 
@@ -63,14 +63,14 @@ public interface SequentialLogStore {
     /**
      * Gets the log entry at the specified index
      * @param index starts from 1
-     * @return the log entry or null if index >= {@code this.getFirstAvailableIndex()}
+     * @return the log entry or null if index &gt;= {@code this.getFirstAvailableIndex()}
      */
     public LogEntry getLogEntryAt(long index);
 
     /**
      * Pack {@code itemsToPack} log items starts from {@code index}
-     * @param index
-     * @param itemsToPack
+     * @param index index of the log store to start
+     * @param itemsToPack items to pack
      * @return log pack
      */
     public byte[] packLog(long index, int itemsToPack);
@@ -78,13 +78,13 @@ public interface SequentialLogStore {
     /**
      * Apply the log pack to current log store, starting from index
      * @param index the log index that start applying the logPack, index starts from 1
-     * @param logPack
+     * @param logPack log pack to apply
      */
     public void applyLogPack(long index, byte[] logPack);
 
     /**
      * Compact the log store by removing all log entries including the log at the lastLogIndex
-     * @param lastLogIndex
+     * @param lastLogIndex pack until the last log index
      * @return compact successfully or not
      */
     public boolean compact(long lastLogIndex);

@@ -21,7 +21,7 @@ public interface RpcClientFactory {
 
     /**
      * Creates a RpcClient for the given endpoint
-     * @param endpoint
+     * @param endpoint endpoint for the server
      * @return an instance of RpcClient
      */
     public RpcClient createRpcClient(String endpoint);

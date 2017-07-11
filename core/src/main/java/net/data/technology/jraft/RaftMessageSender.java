@@ -23,7 +23,7 @@ public interface RaftMessageSender {
 
     /**
      * Add a new server to the cluster
-     * @param server
+     * @param server new member of cluster
      * @return true if request is accepted, or false if no leader, rpc fails or leader declines
      */
     CompletableFuture<Boolean> addServer(ClusterServer server);
