@@ -25,28 +25,28 @@ public interface StateMachine {
 	 * Starts the state machine, called by RaftConsensus, RaftConsensus will pass an instance of
 	 * RaftMessageSender for the state machine to send logs to cluster, so that all state machines
 	 * in the same cluster could be in synced
-	 * @param raftMessageSender
+	 * @param raftMessageSender rpc message sender
 	 */
 	public void start(RaftMessageSender raftMessageSender);
 	
     /**
      * Commit the log data at the {@code logIndex}
      * @param logIndex the log index in the logStore
-     * @param data 
+     * @param data application data to commit
      */
     public void commit(long logIndex, byte[] data);
 
     /**
      * Rollback a preCommit item at index {@code logIndex}
      * @param logIndex log index to be rolled back
-     * @param data
+     * @param data application data to rollback
      */
     public void rollback(long logIndex, byte[] data);
 
     /**
      * PreCommit a log entry at log index {@code logIndex}
      * @param logIndex the log index to commit
-     * @param data
+     * @param data application data for pre-commit
      */
     public void preCommit(long logIndex, byte[] data);
 
@@ -60,7 +60,7 @@ public interface StateMachine {
 
     /**
      * Apply a snapshot to current state machine
-     * @param snapshot
+     * @param snapshot the snapshot to be applied
      * @return true if successfully applied, otherwise false
      */
     public boolean applySnapshot(Snapshot snapshot);

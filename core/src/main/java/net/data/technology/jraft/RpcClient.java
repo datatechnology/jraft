@@ -24,8 +24,8 @@ public interface RpcClient {
     /**
      * Sends a RaftRequestMessage to peer and read a response from peer
      * this will not be called concurrently
-     * @param request
-     * @return Raft response
+     * @param request Raft rpc request message
+     * @return Raft rpc response
      */
     public CompletableFuture<RaftResponseMessage> send(RaftRequestMessage request);
 }

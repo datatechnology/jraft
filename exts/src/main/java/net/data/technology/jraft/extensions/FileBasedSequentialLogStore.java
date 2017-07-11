@@ -151,8 +151,8 @@ public class FileBasedSequentialLogStore implements SequentialLogStore {
 
     /**
      * write the log entry at the specific index, all log entries after index will be discarded
-     * @param logIndex must be >= this.getStartIndex()
-     * @param logEntry
+     * @param logIndex must be &gt;= this.getStartIndex()
+     * @param logEntry the log entry to write
      */
     @Override
     public void writeAt(long logIndex, LogEntry logEntry) {

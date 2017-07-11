@@ -15,6 +15,41 @@
   <module>dmprinter</module>
  </modules>
 
+ <dependencyManagement>
+  <dependencies>
+   <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+   </dependency>
+   <dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+   </dependency>
+   <dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.6.2</version>
+   </dependency>
+   <dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpasyncclient</artifactId>
+    <version>4.1.1</version>
+   </dependency>
+   <dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>1.4.192</version>
+   </dependency>
+   <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.1.0</version>
+   </dependency>
+  </dependencies>
+ </dependencyManagement>
+
  <build>
   <pluginManagement>
    <plugins>
@@ -32,7 +67,7 @@
      <version>1.1</version>
      <executions>
       <execution>
-       <phase>run</phase>
+       <phase>integration-test</phase>
        <goals>
         <goal>run</goal>
        </goals>

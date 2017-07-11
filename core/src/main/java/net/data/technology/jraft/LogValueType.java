@@ -76,7 +76,7 @@ public enum LogValueType {
 
     /**
      * Converts a LogValueType to a byte value
-     * @return
+     * @return byte value of the LogValueType
      */
     public abstract byte toByte();
 
