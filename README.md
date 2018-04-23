@@ -1,3 +1,5 @@
+**This project will be proactively monitored and updated**
+
 # jraft
 Raft consensus implementation in java
 
