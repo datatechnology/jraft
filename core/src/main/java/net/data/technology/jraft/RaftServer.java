@@ -22,10 +22,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -46,11 +48,11 @@ public class RaftServer implements RaftMessageHandler {
     private RaftContext context;
     private ScheduledFuture<?> scheduledElection;
     private Map<Integer, PeerServer> peers = new HashMap<Integer, PeerServer>();
+    private Set<Integer> votedServers = new HashSet<>();
     private ServerRole role;
     private ServerState state;
     private int leader;
     private int id;
-    private int votesResponded;
     private int votesGranted;
     private boolean electionCompleted;
     private SequentialLogStore logStore;
@@ -77,7 +79,6 @@ public class RaftServer implements RaftMessageHandler {
         this.config = context.getServerStateManager().loadClusterConfiguration();
         this.stateMachine = context.getStateMachine();
         this.votesGranted = 0;
-        this.votesResponded = 0;
         this.leader = -1;
         this.electionCompleted = false;
         this.snapshotInProgress = new AtomicInteger(0);
@@ -371,8 +372,8 @@ public class RaftServer implements RaftMessageHandler {
         this.state.increaseTerm();
         this.state.setVotedFor(-1);
         this.role = ServerRole.Candidate;
+        this.votedServers.clear();
         this.votesGranted = 0;
-        this.votesResponded = 0;
         this.electionCompleted = false;
         this.context.getServerStateManager().persistState(this.state);
         this.requestVote();
@@ -389,7 +390,7 @@ public class RaftServer implements RaftMessageHandler {
         this.state.setVotedFor(this.id);
         this.context.getServerStateManager().persistState(this.state);
         this.votesGranted += 1;
-        this.votesResponded += 1;
+        this.votedServers.add(this.id);
 
         // this is the only server?
         if(this.votesGranted > (this.peers.size() + 1) / 2){
@@ -563,7 +564,12 @@ public class RaftServer implements RaftMessageHandler {
     }
 
     private void handleVotingResponse(RaftResponseMessage response){
-        this.votesResponded += 1;
+        if(this.votedServers.contains(response.getSource())) {
+            this.logger.info("Duplicate vote from %d form term %d", response.getSource(), this.state.getTerm());
+            return;
+        }
+
+        this.votedServers.add(response.getSource());
         if(this.electionCompleted){
             this.logger.info("Election completed, will ignore the voting result from this server");
             return;
@@ -573,7 +579,7 @@ public class RaftServer implements RaftMessageHandler {
             this.votesGranted += 1;
         }
 
-        if(this.votesResponded >= this.peers.size() + 1){
+        if(this.votedServers.size() >= this.peers.size() + 1){
             this.electionCompleted = true;
         }
 
@@ -678,7 +684,7 @@ public class RaftServer implements RaftMessageHandler {
             this.state.setVotedFor(-1);
             this.electionCompleted = false;
             this.votesGranted = 0;
-            this.votesResponded = 0;
+            this.votedServers.clear();
             this.context.getServerStateManager().persistState(this.state);
             this.becomeFollower();
             return true;
