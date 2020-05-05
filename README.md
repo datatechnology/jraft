@@ -3,22 +3,23 @@
 # jraft
 Raft consensus implementation in java
 
-The core algorithm is implemented based on the TLA+ spec, whose safety is proven, and liveness is highly depended on the pseudo random number sequence, which could be fine if different servers in the same cluster are generating random numbers with different seeds.
+The core algorithm is implemented based on the TLA+ spec, whose safety is proven, and liveness is highly dependent on the pseudo-random number sequence, which could be fine if different servers in the same cluster are generating random numbers with different seeds.
 
-## Supported Features,
+## Supported Features
 - [x] Core Algorithm, safety is proven
 - [x] Configuration Change Support, add or remove servers one by one without limitation
 - [x] Client Request Support
 - [x] **Urgent commit**, see below
 - [x] log compaction 
 
-> Urgent Commit, is a new feature introduced by this implementation, which enables the leader asks all other servers to commit one or more logs if commit index is advanced. With Urgent Commit, the system's performance is highly improved and the heartbeat interval could be increased to seconds,depends on how long your application can abide when a leader goes down, usually, one or two seconds is fine. 
+### Urgent Commit
+**Urgent Commit** is a new feature introduced by this implementation, which enables the **leader** to ask all other servers to commit one or more logs if the commit index is advanced. With Urgent Commit, the system's performance is highly improved and the heartbeat interval could be increased to seconds, depending on how long your application can abide when a leader goes down, usually, one or two seconds is fine. 
 
 ## About this implementation
-it's always safer to implement such kind of algorithm based on Math description other than natural languge description.
-there should be an auto conversion from TLA+ to programming languages, even they are talking things in different ways, but they are identical
+It's always safer to implement such kind of algorithm based on Math description other than natural language description.
+there should be an auto-conversion from TLA+ to programming languages, even they are taking things in different ways, but they are identical.
 
-> In the example of dmprinter (Distributed Message Printer), it takes about 4ms to commit a message, while in Active-Active scenario (sending messages to all three instances of dmprinter), it takes about 9ms to commit a message, the data is collected by CLT (Central Limitation Theory) with 95% of confidence level.
+In the example of **dmprinter** (Distributed Message Printer), it takes about 4ms to commit a message, while in **Active-Active** scenario (sending messages to all three instances of dmprinter), it takes about 9ms to commit a message, the data is collected by CLT (Central Limitation Theory) with 95% of confidence level.
 
 ## Code Structure
 This project contains not that much code, as it's well abstracted, here is the project structure
@@ -33,12 +34,12 @@ This project contains not that much code, as it's well abstracted, here is the p
 * **setup**, some scripts for Windows(R) platform to run **dmprinter**
 
 ## Run dmprinter
-dmprinter is a distributed message printer which is used to verify the core implementation. A set of Windows(R) based setup scripts is shipped with this project, under **setup** folder.
-  1. Export three projects into  one executable jar file, called jraft.jar
-  2. start a command prompt, change directory to **setup** folder
-  3. run **setup.cmd**, it will start three instances of jraft
-  4. write a simple client by using python or whatever language you would love to to connect to any port between 8001 to 8003, which dmprinter is listening on. **message format** see below
-  5. you can call addsrv.cmd \<server-id-in-int\> to start new instance of raft and call addsrv:\<server-id-in-int\>,tcp://localhost:900\<server-id-in-int\> to join the server to cluster, e.g. **addsrv:4,tcp://localhost:9004** through the client, or remove a server from cluster **rmsrv,4**, check out more details about the message format as below,
+**dmprinter** is a distributed message printer which is used to verify the core implementation. A set of Windows(R) based setup scripts is shipped with this project, under **setup** folder.
+  1. Export three projects into one executable jar file, called jraft.jar
+  2. Start a command prompt, change directory to **setup** folder
+  3. Run **setup.cmd**, it will start three instances of jraft
+  4. Write a simple client by using Python or whatever language you would love to connect to any port between `8001` and `8003`, which dmprinter is listening on. **message format** see below
+  5. You can call `addsrv.cmd \<server-id-in-int\>` to start new instance of raft and call `addsrv:\<server-id-in-int\>,tcp://localhost:900\<server-id-in-int\>` to join the server to cluster, e.g. `addsrv:4,tcp://localhost:9004` through the client, or remove a server from cluster `rmsrv,4`, check out more details about the message format as below,
   
 > Message format \<header\>\<message\>
 
