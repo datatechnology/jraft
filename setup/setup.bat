@@ -10,18 +10,9 @@ for %%i in (1 2 3) do (
     start "server%%i" /D "%curdir%\server%%i" java -jar %curdir%\dmprinter.jar server "%curdir%\server%%i" 800%%i
 )
 
-REM echo start a client
-REM mkdir client
-REM copy /Y init-cluster.json "%curdir%\client\cluster.json"
-REM copy /Y "%curdir%\server1\config.properties" "%curdir%\client\config.properties"
-REM start "client" /D "%curdir%\client" java -jar %curdir%\dmprinter.jar client "%curdir%\client"
-goto done
-:setupDummy
-mkdir "%curdir%\dummys"
-echo start dummy server
-start "Dummy Server" /D "%curdir%\dummys" java -jar %curdir%\dmprinter.jar dummy server
-mkdir "%curdir%\dummyc"
-echo start dummy client
-start "Dummy Client" /D "%curdir%\dummyc" java -jar %curdir%\dmprinter.jar dummy client
-:done
+echo start a client
+mkdir client
+copy /Y init-cluster.json "%curdir%\client\cluster.json"
+copy /Y "%curdir%\server1\config.properties" "%curdir%\client\config.properties"
+start "client" /D "%curdir%\client" java -jar %curdir%\dmprinter.jar client "%curdir%\client"
 @echo on

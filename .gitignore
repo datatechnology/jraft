@@ -6,3 +6,4 @@ exts/target/
 core/target/
 dmprinter/target/
 .settings/
+.idea/
