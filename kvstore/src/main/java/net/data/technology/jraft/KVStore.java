@@ -98,29 +98,6 @@ public class KVStore implements StateMachine {
     }
 
     @Override
-    public void saveSnapshotData(Snapshot snapshot, long offset, byte[] data) {}
-
-    @Override
-    public boolean applySnapshot(Snapshot snapshot) {
-        return true;
-    }
-
-    @Override
-    public int readSnapshotData(Snapshot snapshot, long offset, byte[] buffer) {
-        return -1;
-    }
-
-    @Override
-    public CompletableFuture<Boolean> createSnapshot(Snapshot snapshot) {
-        return null;
-    }
-
-    @Override
-    public Snapshot getLastSnapshot() {
-        return null;
-    }
-
-    @Override
     public void rollback(long logIndex, byte[] data) {
 
     }

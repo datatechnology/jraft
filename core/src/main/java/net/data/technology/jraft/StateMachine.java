@@ -49,45 +49,6 @@ public interface StateMachine {
      * @param data application data for pre-commit
      */
     public void preCommit(long logIndex, byte[] data);
-
-    /**
-     * Save data for the snapshot
-     * @param snapshot the snapshot information
-     * @param offset offset of the data in the whole snapshot
-     * @param data part of snapshot data
-     */
-    public void saveSnapshotData(Snapshot snapshot, long offset, byte[] data);
-
-    /**
-     * Apply a snapshot to current state machine
-     * @param snapshot the snapshot to be applied
-     * @return true if successfully applied, otherwise false
-     */
-    public boolean applySnapshot(Snapshot snapshot);
-
-    /**
-     * Read snapshot data at the specified offset to buffer and return bytes read
-     * @param snapshot the snapshot info
-     * @param offset the offset of the snapshot data
-     * @param buffer the buffer to be filled
-     * @return bytes read
-     */
-    public int readSnapshotData(Snapshot snapshot, long offset, byte[] buffer);
-
-    /**
-     * Read the last snapshot information
-     * @return last snapshot information in the state machine or null if none
-     */
-    public Snapshot getLastSnapshot();
-
-    /**
-     * Create a snapshot data based on the snapshot information asynchronously
-     * set the future to true if snapshot is successfully created, otherwise, 
-     * set it to false
-     * @param snapshot the snapshot info
-     * @return true if snapshot is created successfully, otherwise false
-     */
-    public CompletableFuture<Boolean> createSnapshot(Snapshot snapshot);
     
     /**
      * Save the state of state machine to ensure the state machine is in a good state, then exit the system
