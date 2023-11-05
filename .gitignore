@@ -7,3 +7,4 @@ core/target/
 dmprinter/target/
 .settings/
 .idea/
+setup/*/

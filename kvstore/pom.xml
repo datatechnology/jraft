@@ -9,11 +9,11 @@
     </parent>
 
     <groupId>net.data-technology.jraft</groupId>
-    <artifactId>dmprinter</artifactId>
+    <artifactId>kvstore</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>dmprinter</name>
+    <name>kvstore</name>
     <url>http://maven.apache.org</url>
 
     <properties>
