@@ -4,7 +4,7 @@
 **/*.jar
 exts/target/
 core/target/
-dmprinter/target/
+kvstore/target/
 .settings/
 .idea/
 setup/*/

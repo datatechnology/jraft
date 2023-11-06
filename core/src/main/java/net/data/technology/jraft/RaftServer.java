@@ -69,7 +69,6 @@ public class RaftServer implements RaftMessageHandler {
     private boolean configChanging = false;
     private boolean catchingUp = false;
     private int steppingDown = 0;
-    private final AtomicInteger snapshotInProgress;
     // end fields for extended messages
 
     public RaftServer(RaftContext context) {
@@ -81,7 +80,6 @@ public class RaftServer implements RaftMessageHandler {
         this.votesGranted = 0;
         this.leader = -1;
         this.electionCompleted = false;
-        this.snapshotInProgress = new AtomicInteger(0);
         this.context = context;
         this.logger = context.getLoggerFactory().getLogger(this.getClass());
         this.random = new Random(Calendar.getInstance().getTimeInMillis());
